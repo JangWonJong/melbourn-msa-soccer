@@ -1,4 +1,5 @@
-import {Layout} from "../components/index";
+import {Layout} from "common"
+
 
 function MyApp({ Component, pageProps}) {
   return (
