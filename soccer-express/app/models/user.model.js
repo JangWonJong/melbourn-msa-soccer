@@ -1,15 +1,14 @@
-module.exports = mongoose => {
-    return mongoose.model(
+module.exports = mongoose => mongoose.model(
         'user',
         mongoose.Schema(
             {username: String,
              password: String,
              name: String,
-             telephone: String
+             telephone: String             
             }, { timestamps: true}
         )
     )
-}
+
 
 
 /*const mongoose = require('mongoose')
