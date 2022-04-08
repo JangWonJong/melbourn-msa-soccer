@@ -5,7 +5,7 @@ import React, { useState } from 'react'
 
 export default function SignUp(){
     const [inputs, setInputs] = useState({})
-    const {username, password, name, telephone ,dddd} = inputs;
+    const {username, password, name, telephone } = inputs;
     
     const handleChange = e =>{
         e.preventDefault()
@@ -16,10 +16,8 @@ export default function SignUp(){
     const handleSubmit = e => {
         e.preventDefault()        
         axios.post('http://localhost:5000/api/user/sign-up', inputs)       
-        .then(res => {         
-            
-            alert(JSON.stringify(res.data))
-            
+        .then(res => {                   
+            alert(JSON.stringify(res.data))            
         })
         .catch(err => (err))
     }  

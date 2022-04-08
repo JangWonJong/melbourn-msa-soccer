@@ -1,34 +1,51 @@
-import tableStyles from './style/user-list.module.css'
+import axios from 'axios'
+import { useState, useEffect } from 'react'
+import tableStyles from '../common/style/table.module.css'
 
 const Table = ({columns, colspan, data })  =>{
-    return(
+        return(
         <table className={tableStyles.table}>
             <thead>
-            <tr className={tableStyles.tr}>
             {/*columns.map((x)=>{x})*/}
+            <tr className={tableStyles.tr}>
             {columns.map((column)=>(
-                <th key={column.username} className={tableStyles.td}>{column}</th>
+                <th className={tableStyles.td} key = {column.username}>{column}</th>
             ))}
             </tr>
             </thead>
-        <tbody>
-                <tr className={tableStyles.tr}>
-                    { data.length == 0 ?<td colSpan={colspan} className={tableStyles.td}>NO DATA</td>
-                    :<td colSpan={colspan} className={tableStyles.td}>데이터가 있습니다</td>}
+            <tbody>
+                { data.length == 0 ?<tr className={tableStyles.tr}>
+                                    <td colSpan={colspan} className={tableStyles.td}>NO DATA</td>
+                                    </tr>
+                                    :data.map((user) => (
+                                        <tr className={tableStyles.tr}  key={user.username} >
+                                          <td className={tableStyles.td}>{user.username}</td>
+                                          <td className={tableStyles.td}>{user.password}</td>
+                                          <td className={tableStyles.td}>{user.name}</td>
+                                          <td className={tableStyles.td}>{user.telephone}</td>
+                                        </tr>
 
-                </tr>
-        </tbody>
+                                    ))}               
+             </tbody>
         </table>
     )
 }
+
 export default function UserList(){
+    
     const columns = ['username','password','name','telephone']
-    const data = [1,2,3,4,5,56,67,7,7,78,8,87,6,12,4,234,23,42]
-    const count = data.length
+    const [data, setData] = useState([])
+    
+    useEffect(()=>{
+        axios.get('http://localhost:5000/api/user/list')
+        .then(res=>{
+            setData(res.data.users)
+        })
+        .catch(err=>{})
+    },[])
     return(<>
        
         <h1>사용자 목록</h1>
-        {count !=0 && <h3>회원수: {count} 명</h3>}
         <div className={tableStyles.td}>
         <Table columns={columns} colspan={4} data = {data} ></Table> 
         </div>

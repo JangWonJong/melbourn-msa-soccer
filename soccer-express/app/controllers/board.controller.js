@@ -1,9 +1,21 @@
-exports.write = (req, res)=>{
-    const{passengerId, name, teamId, subject} = req.body
-    console.log(`넘어온 JSON 값 : ${JSON.stringify(req.body)}`)
-    console.log(`passengerId 값 : ${JSON.stringify(passengerId)}`)
-    console.log(`name 값 : ${JSON.stringify(name)}`)
-    console.log(`teamId 값 : ${JSON.stringify(teamId)}`)
-    console.log(`subject 값 : ${JSON.stringify(subject)}`)
-    res.status(200).json({'result' : 'ok'})
-  }
+const res = require('express/lib/response')
+const db = require('../models/index')
+const BoardSchema = db.board
+
+exports.board = (req, res) => {
+  
+  new BoardSchema(req.body
+    ).save(()=>{
+      res.status(200).json({'result':'ok'})
+    })
+}
+
+exports.boardlist = (req, res)=>{
+  console.log('#######연결됨######')
+  BoardSchema.find()
+  .exec((err, boards)=>{
+    if(err) return res.status(400).send(err)
+    res.status(200).json({success: true, boards })
+  })
+}
+

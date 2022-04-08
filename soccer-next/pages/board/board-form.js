@@ -10,7 +10,7 @@ export default function BoardhtmlForm(){
     const handleSubmit = (e) => {
         e.preventDefault()
         alert(`등록 팀 정보 : ${JSON.stringify(inputs)}`)
-        axios.post('http://localhost:5000/api/board/write', inputs)
+        axios.post('http://localhost:5000/api/board/board', inputs)
         .then(res => {
             alert(JSON.stringify(res.data))
         })

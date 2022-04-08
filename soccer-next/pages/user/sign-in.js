@@ -14,7 +14,7 @@ export default function Login () {
     }
     const handleSubmit = async e => {
         e.preventDefault()
-        axios.post('http://localhost:5000/api/user/', inputs)        
+        axios.post('http://localhost:5000/api/user/list', inputs)        
         .then(res => {
             
         })
@@ -28,7 +28,7 @@ export default function Login () {
             <input name='id' type="text" placeholder='아이디' onChange={handleChange}/><br/>
             <label htmlFor=""><b>Password</b></label><br/>
             <input name ='pw' type="password" placeholder='비밀번호' onChange={handleChange}/><br/>
-            <button onClick={handleClick}>로그인</button><br/>    
+            <button onClick={handleSubmit}>로그인</button><br/>    
                                                    
         </div>
         </form>                
